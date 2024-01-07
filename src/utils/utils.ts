@@ -92,7 +92,7 @@ export async function pushMetaData(userId: string, tokens: any, metadata: unknow
     const url = `https://discord.com/api/v10/users/@me/applications/${process.env.DISCORD_CLIENT_ID}/role-connection`;
     const accessToken = await getAccessToken(userId, tokens);
     const body = {
-        platform_name: "Exmaple Linked Role",
+        platform_name: "Fnr Linked Role",
         metadata
     };
 
