@@ -3,9 +3,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import { getOAuthTokens, getOAuthURL, getUserData, pushMetaData } from './utils/utils';
-
-// Basic
-export const DiscordStorage = new Map();
+import { redis } from './base/redis';
 
 const app = express();
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -36,11 +34,13 @@ app.get("/discord-oauth-callback", async (req, res) => {
     const userData: any = await getUserData(tokens);
     const userId = userData.user.id;
 
-    DiscordStorage.set(userId, {
+    const data = {
         access_token: tokens.access_token,
         refresh_token: tokens.refresh_token,
         expires_at: Date.now() + tokens.expires_in * 1000,
-    });
+    };
+
+    await redis.set(userId, JSON.stringify(data), "EX", tokens.expires_in);
 
     await updateMetaData(userId);
 
@@ -48,7 +48,7 @@ app.get("/discord-oauth-callback", async (req, res) => {
 })
 
 async function updateMetaData(userId: string) {
-    const tokens = await DiscordStorage.get(userId);
+    const tokens = JSON.parse((await redis.get(userId) || "{}"))
     const metaData = {
         cookieseaten: 1483,
         allergictonuts: 0, // 0 for false, 1 for true

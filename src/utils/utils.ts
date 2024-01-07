@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { DiscordStorage } from '../index'
+import { redis } from '../base/redis';
 
 export function getOAuthURL() {
     const state = crypto.randomUUID();
@@ -61,8 +61,8 @@ export async function getAccessToken(userId: string, tokens: any) {
 
         if (response.ok) {
             const tokens: any = await response.json();
-            tokens.expires_at = Date.now() + tokens.expires_at * 1000;
-            DiscordStorage.set(userId, tokens);
+            tokens.expires_at = Date.now() + tokens.expires_in * 1000;
+            await redis.set(userId, JSON.stringify(tokens), "EX", tokens.expires_in);
             return tokens.access_token
         } else {
             throw new Error(`Error refreshing access token: [${response.status}] ${response.statusText}`);

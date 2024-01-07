@@ -29,8 +29,8 @@ const body = [
         method: "PUT",
         body: JSON.stringify(body),
         headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
         }
     });
     
