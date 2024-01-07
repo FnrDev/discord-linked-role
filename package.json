@@ -6,7 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "ngrok": "ngrok http 8787",
-    "register": "node dist/register.js"
+    "register": "node dist/register.js",
+    "start": "tsc && node ."
   },
   "keywords": [],
   "author": "FnrDev",
