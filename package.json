@@ -1,15 +1,16 @@
 {
   "name": "linked-role",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple discord bot for linked roles",
+  "private": true,
   "main": "dist/index.js",
   "scripts": {
     "ngrok": "ngrok http 8787",
     "register": "node dist/register.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "FnrDev",
+  "license": "MIT",
   "dependencies": {
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
