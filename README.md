@@ -25,7 +25,7 @@ npm install
 
 Fetch the credentials from your app's settings and add them to a `.env` file. You'll need your bot token (`DISCORD_TOKEN`), client ID (`DISCORD_CLIENT_ID`), client secret (`DISCORD_CLIENT_SECRET`). You'll also need a redirect URI (`DISCORD_REDIRECT_URI`) and a randomly generated UUID (`COOKIE_SECRET`), which are both explained below:
 
-```
+```dotenv
 DISCORD_CLIENT_ID: <your OAuth2 client Id>
 DISCORD_CLIENT_SECRET: <your OAuth2 client secret>
 DISCORD_TOKEN: <your bot token>
@@ -36,7 +36,7 @@ REDIS_URL: <your redis url>
 
 For the UUID (`COOKIE_SECRET`), you can run the following commands:
 
-```
+```bash
 $ node
 crypto.randomUUID()
 ```
